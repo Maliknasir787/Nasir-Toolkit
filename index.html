@@ -16,12 +16,14 @@
       color: #00fff7;
       overflow-x: hidden;
     }
-h1 {
-  text-align: center;
-  font-size: 3rem;
-  margin: 50px 20px 20px;
-  text-shadow: 0 0 20px #00ffe1;
-}
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin: 50px 20px 20px;
+      text-shadow: 0 0 20px #00ffe1;
+      color: #00ffe1;
+    }
 
     @keyframes gradientBG {
       0% {
@@ -33,14 +35,6 @@ h1 {
       100% {
         background-position: 0% 50%;
       }
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 3rem;
-      margin: 50px 20px 20px;
-      text-shadow: 0 0 20px #00ffe1;
-      color: #00ffe1;
     }
 
     .section {
@@ -69,6 +63,7 @@ h1 {
     }
 
     .btn {
+      position: relative;
       display: block;
       width: 90%;
       max-width: 400px;
@@ -80,14 +75,36 @@ h1 {
       border: 2px solid #00ffe1;
       border-radius: 10px;
       cursor: pointer;
+      overflow: hidden;
+      z-index: 0;
       transition: all 0.3s ease;
       text-align: center;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, #00ffe1, #ff00c8, #00ff00, #ff9900, #66ccff, #ff0055);
+      background-size: 600% 600%;
+      animation: neonFlow 5s linear infinite;
+      filter: blur(20px);
+      z-index: -1;
     }
 
     .btn:hover {
       background: #00ffe1;
       color: #000;
-      box-shadow: 0 0 15px #00ffe1;
+      box-shadow: 0 0 15px #00ffe1, 0 0 30px #00ffe1;
+    }
+
+    @keyframes neonFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .footer {
@@ -164,47 +181,43 @@ h1 {
       window.open(url, '_blank');
     }
 
-    // Scroll Reveal Effect
     const sections = document.querySelectorAll('.section');
 
     function revealOnScroll() {
       const triggerBottom = window.innerHeight * 0.9;
-
       sections.forEach(section => {
         const top = section.getBoundingClientRect().top;
-
         if (top < triggerBottom) {
           section.classList.add('visible');
         }
       });
     }
+
     // Color changing heading
-const heading = document.querySelector("h1");
-const colors = ["#00ffe1", "#ff00c8", "#00ff00", "#ff9900", "#66ccff", "#ff0055"];
-let colorIndex = 0;
+    const heading = document.querySelector("h1");
+    const colors = ["#00ffe1", "#ff00c8", "#00ff00", "#ff9900", "#66ccff", "#ff0055"];
+    let colorIndex = 0;
 
-setInterval(() => {
-  heading.style.color = colors[colorIndex];
-  heading.style.textShadow = `0 0 20px ${colors[colorIndex]}`;
-  colorIndex = (colorIndex + 1) % colors.length;
-}, 1000);
-// Color changing for all h2 section headings
-const h2Headings = document.querySelectorAll(".section h2");
-let h2ColorIndex = 0;
+    setInterval(() => {
+      heading.style.color = colors[colorIndex];
+      heading.style.textShadow = `0 0 20px ${colors[colorIndex]}`;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }, 1000);
 
-setInterval(() => {
-  h2Headings.forEach(h2 => {
-    h2.style.color = colors[h2ColorIndex];
-    h2.style.textShadow = `0 0 10px ${colors[h2ColorIndex]}`;
-  });
-  h2ColorIndex = (h2ColorIndex + 1) % colors.length;
-}, 1000);
+    // Color changing for all h2 headings
+    const h2Headings = document.querySelectorAll(".section h2");
+    let h2ColorIndex = 0;
 
-
+    setInterval(() => {
+      h2Headings.forEach(h2 => {
+        h2.style.color = colors[h2ColorIndex];
+        h2.style.textShadow = `0 0 10px ${colors[h2ColorIndex]}`;
+      });
+      h2ColorIndex = (h2ColorIndex + 1) % colors.length;
+    }, 1000);
 
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
   </script>
 </body>
-  </html>
-      
+</html>
